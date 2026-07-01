@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Siddharth Das — Senior Video Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --purple:#9b6dff;
+    --purple-soft:#b794ff;
+    --purple-dim:#6a4bb0;
+    --dark:#08080c;
+    --dark2:#0e0e15;
+    --dark3:#15151f;
+    --dark4:#1c1c2a;
+    --text:#ededf2;
+    --muted:#8d8b9c;
+    --border:#262635;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(8,8,12,0.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:var(--purple-soft);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:1.5px;text-transform:uppercase;transition:color 0.3s;}
+  .nav-links a:hover{color:var(--purple-soft);}
+  .nav-cta{background:transparent;border:1px solid var(--purple);color:var(--purple-soft);padding:0.5rem 1.4rem;font-size:0.8rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;}
+  .nav-cta:hover{background:var(--purple);color:#fff;}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(155,109,255,0.13),transparent 60%),linear-gradient(180deg,#08080c 0%,#0e0e15 45%,#08080c 100%);z-index:0;}
+  .film-grain{position:absolute;inset:0;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:150px;z-index:1;}
+  .letterbox-top,.letterbox-bottom{position:absolute;left:0;right:0;height:70px;background:#000;z-index:2;}
+  .letterbox-top{top:0;} .letterbox-bottom{bottom:0;}
+  .hero-content{position:relative;z-index:3;}
+  .hero-tag{font-size:0.8rem;letter-spacing:4px;color:var(--purple-soft);text-transform:uppercase;margin-bottom:1.5rem;opacity:0.9;}
+  .hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,9vw,8rem);line-height:0.95;letter-spacing:6px;color:#fff;margin-bottom:1rem;}
+  .hero-title{font-size:0.95rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:0.6rem;}
+  .hero-location{font-size:0.8rem;letter-spacing:2px;color:var(--purple-soft);text-transform:uppercase;margin-bottom:2rem;opacity:0.8;}
+  .hero-divider{width:60px;height:1px;background:var(--purple);margin:0 auto 2.2rem;}
+  .hero-desc{font-size:0.98rem;color:var(--muted);max-width:560px;line-height:1.85;margin-bottom:3rem;}
+  .hero-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--purple);color:#fff;padding:0.9rem 2.5rem;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-weight:600;transition:all 0.3s;font-family:'Inter',sans-serif;}
+  .btn-primary:hover{background:var(--purple-soft);transform:translateY(-2px);}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);padding:0.9rem 2.5rem;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;}
+  .btn-outline:hover{border-color:var(--purple);color:var(--purple-soft);}
+
+  /* PORTFOLIO */
+  .portfolio{padding:6rem 4rem;background:var(--dark);}
+  .section-label{font-size:0.75rem;letter-spacing:4px;color:var(--purple-soft);text-transform:uppercase;margin-bottom:0.8rem;}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.3rem,5vw,3.6rem);letter-spacing:3px;color:#fff;margin-bottom:3rem;}
+  .filter-tabs{display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:3rem;}
+  .tab{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.5rem 1.2rem;font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;}
+  .tab.active,.tab:hover{border-color:var(--purple);color:var(--purple-soft);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+  .project-card{position:relative;aspect-ratio:16/9;background:var(--dark3);border:1px solid var(--border);overflow:hidden;}
+  .project-card iframe{width:100%;height:100%;border:none;display:block;}
+  .video-loading{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;background:var(--dark3);}
+  .project-label{position:absolute;top:10px;left:10px;background:rgba(8,8,12,0.85);border:1px solid var(--border);padding:0.3rem 0.7rem;font-size:0.65rem;letter-spacing:1.5px;color:var(--purple-soft);text-transform:uppercase;pointer-events:none;z-index:2;}
+  .project-title{position:absolute;bottom:0;left:0;right:0;padding:0.7rem 0.9rem;background:linear-gradient(0deg,rgba(0,0,0,0.85),transparent);font-size:0.8rem;color:#fff;letter-spacing:0.5px;pointer-events:none;z-index:2;}
+
+  /* ABOUT */
+  .about{padding:6rem 4rem;background:var(--dark2);}
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:4rem;align-items:start;}
+  .about-img{position:relative;}
+  .about-img-inner{width:100%;aspect-ratio:3/4;background:var(--dark4);border:1px solid var(--border);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;}
+  .about-img-inner img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .about-accent{position:absolute;bottom:-18px;right:-18px;width:90px;height:90px;border:2px solid var(--purple);z-index:0;}
+  .about-bio{color:var(--muted);line-height:1.9;font-size:0.95rem;margin-bottom:1.6rem;}
+  .achievement-box{background:var(--dark3);border:1px solid var(--border);border-left:3px solid var(--purple);padding:1.3rem 1.5rem;margin-bottom:2rem;}
+  .achievement-tag{font-size:0.7rem;letter-spacing:2px;color:var(--purple-soft);text-transform:uppercase;margin-bottom:0.5rem;}
+  .achievement-title{font-size:1rem;font-weight:500;color:#fff;margin-bottom:0.6rem;}
+  .achievement-box ul{padding-left:1.1rem;color:var(--muted);font-size:0.88rem;line-height:1.8;}
+  .timeline{margin-bottom:1.6rem;}
+  .timeline-item{position:relative;padding-left:1.6rem;padding-bottom:1.6rem;border-left:1px solid var(--border);}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{content:'';position:absolute;left:-5px;top:2px;width:9px;height:9px;border-radius:50%;background:var(--purple);}
+  .timeline-role{font-size:0.95rem;font-weight:500;color:#fff;}
+  .timeline-meta{font-size:0.75rem;color:var(--purple-soft);letter-spacing:0.5px;margin:0.2rem 0 0.6rem;}
+  .timeline-item p{font-size:0.85rem;color:var(--muted);line-height:1.75;}
+  .edu-row{display:flex;flex-direction:column;gap:0.5rem;font-size:0.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:1.2rem;}
+  .edu-row span{color:var(--text);}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+  .stat-card{background:var(--dark3);border:1px solid var(--border);padding:1.2rem;border-left:3px solid var(--purple);}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--purple-soft);}
+  .stat-label{font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+
+  /* SKILLS */
+  .skills{padding:6rem 4rem;background:var(--dark);}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.2rem;margin-top:1rem;}
+  .skill-card{background:var(--dark3);border:1px solid var(--border);padding:1.5rem;transition:border-color 0.3s;}
+  .skill-card:hover{border-color:var(--purple);}
+  .skill-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.8rem;}
+  .skill-name{font-size:0.85rem;letter-spacing:1px;color:var(--text);}
+  .skill-level{font-size:0.7rem;color:var(--purple-soft);letter-spacing:1px;text-transform:uppercase;}
+  .skill-bar{height:3px;background:var(--dark4);}
+  .skill-fill{height:100%;background:linear-gradient(90deg,var(--purple-dim),var(--purple));transition:width 1s ease;}
+
+  /* CONTACT */
+  .contact{padding:6rem 4rem;background:var(--dark2);display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start;}
+  .contact-info{margin-top:2rem;}
+  .contact-item{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+  .contact-icon{width:44px;height:44px;border:1px solid var(--purple);display:flex;align-items:center;justify-content:center;color:var(--purple-soft);flex-shrink:0;}
+  .contact-label{font-size:0.7rem;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;}
+  .contact-val{font-size:0.95rem;color:var(--text);}
+  .form-group{margin-bottom:1.2rem;}
+  .form-group label{display:block;font-size:0.75rem;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:0.5rem;}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:var(--dark3);border:1px solid var(--border);color:var(--text);padding:0.9rem 1rem;font-family:'Inter',sans-serif;font-size:0.9rem;transition:border-color 0.3s;outline:none;}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--purple);}
+  .form-group textarea{min-height:130px;resize:vertical;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .submit-btn{background:var(--purple);color:#fff;padding:1rem 2.5rem;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-weight:600;font-family:'Inter',sans-serif;transition:all 0.3s;margin-top:0.5rem;}
+  .submit-btn:hover{background:var(--purple-soft);}
+
+  /* FOOTER */
+  footer{background:#000;border-top:1px solid var(--border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--purple-soft);}
+  .footer-text{font-size:0.8rem;color:var(--muted);}
+
+  .filmstrip{height:36px;background:repeating-linear-gradient(90deg,#000 0px,#000 18px,var(--dark4) 18px,var(--dark4) 20px);border-top:4px solid #000;border-bottom:4px solid #000;position:relative;overflow:hidden;}
+  .filmstrip::before{content:'';position:absolute;top:4px;bottom:4px;left:0;right:0;background:repeating-linear-gradient(90deg,transparent 0px,transparent 14px,#000 14px,#000 20px);}
+  .section-header{margin-bottom:3rem;}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}
+    .hero{padding:1.5rem;}
+    .portfolio,.skills,.contact,.about{padding:4rem 1.5rem;}
+    .about-grid{grid-template-columns:1fr;gap:2.5rem;}
+    .contact{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    footer{padding:1.5rem;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SIDDHARTH DAS</div>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="film-grain"></div>
+  <div class="letterbox-top"></div>
+  <div class="letterbox-bottom"></div>
+  <div class="hero-content">
+    <p class="hero-tag">✦ Currently editing at JHS Media Company</p>
+    <h1 class="hero-name">SIDDHARTH<br>DAS</h1>
+    <p class="hero-title">Senior Video Editor · Editing Project Manager · AI Video Creator</p>
+    <p class="hero-location">Jaipur, Rajasthan, India</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">2+ years across agency, freelance, YouTube, wedding, event and short-form video production — managing editing workflows for 3 channels, blending cinematic storytelling with AI-driven video creation.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">View My Work</button>
+      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+    </div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-header">
+    <p class="section-label">✦ Selected Work</p>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="filter-tabs">
+    <button class="tab active" data-filter="all">All</button>
+    <button class="tab" data-filter="commercial">Commercial</button>
+    <button class="tab" data-filter="wedding">Wedding</button>
+    <button class="tab" data-filter="documentary">Documentary</button>
+    <button class="tab" data-filter="youtube">YouTube</button>
+    <button class="tab" data-filter="reels">Reels</button>
+    <button class="tab" data-filter="aivideo">AI Video</button>
+  </div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<div class="filmstrip"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-header">
+    <p class="section-label">✦ About Me</p>
+    <h2 class="section-title">The Editor Behind the Cut</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-img">
+      <div class="about-img-inner">
+        <img id="profilePhoto" src="" alt="Siddharth Das" style="display:none;"/>
+        <svg id="profilePlaceholder" width="80" height="80" viewBox="0 0 24 24" fill="#9b6dff" style="opacity:0.18;"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <!-- PHOTO LOADER: drop your hosted image URL into PHOTO_URL below in the script -->
+      </div>
+      <div class="about-accent"></div>
+    </div>
+    <div class="about-text">
+      <p class="about-bio">Senior Video Editor with 2+ years of experience across agency, freelance, YouTube, wedding, event, and short-form video production. Currently editing and managing workflows for 3 channels at JHS Media Company while handling project coordination, team management, client communication, and deadline-focused delivery. Strong in Adobe Premiere Pro, AI video generation, cinematic storytelling, social media content, and multi-editor workflow management.</p>
+
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Active Channels</div></div>
+        <div class="stat-card"><div class="stat-num">10+</div><div class="stat-label">Editors Managed</div></div>
+        <div class="stat-card"><div class="stat-num">20+</div><div class="stat-label">Videographers Led</div></div>
+      </div>
+
+      <div class="achievement-box">
+        <p class="achievement-tag">✦ Key Achievement</p>
+        <p class="achievement-title">Jain Maha Panchkalyanak Event — Content &amp; Team Management</p>
+        <ul>
+          <li>Managed content operations with a team of 10 editors and data from 20+ videographers</li>
+          <li>Built a fast event-content workflow from shoot to edit, review, export and posting</li>
+          <li>Grew the event page by thousands of followers within one month</li>
+        </ul>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <p class="timeline-role">Senior Video Editor &amp; Editing Project Manager</p>
+          <p class="timeline-meta">JHS Media Company — Jan 2025 – Present</p>
+          <p>Editing and managing workflows for 3 active channels including YouTube, podcast edits, reels, shorts, and promotional assets. Coordinating editors, videographers and clients while using AI video generation for visual concepts and scene extensions.</p>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-role">Freelance Video Editor</p>
+          <p class="timeline-meta">Self-Employed — 2024 – Jan 2025</p>
+          <p>Edited cinematic wedding highlights, event films, YouTube videos and reels for multiple clients. Handled client briefs, revisions, color correction, sound design and final delivery.</p>
+        </div>
+      </div>
+
+      <div class="edu-row">
+        <div><span>Bachelor of Computer Applications (BCA)</span> — Rajasthan University, CGPA 7.8/10, 2024</div>
+        <div><span>Senior Secondary, Science-Maths</span> — Rainbow School, 74.6%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-header">
+    <p class="section-label">✦ Expertise</p>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">Premiere Pro</span><span class="skill-level">High</span></div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">AI Video Generation</span><span class="skill-level">High</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">After Effects</span><span class="skill-level">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">DaVinci Resolve</span><span class="skill-level">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">Photoshop</span><span class="skill-level">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">Team Management</span><span class="skill-level">High</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">Color Grading</span><span class="skill-level">High</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+    <div class="skill-card"><div class="skill-top"><span class="skill-name">Sound Design</span><span class="skill-level">Intermediate</span></div><div class="skill-bar"><div class="skill-fill" style="width:62%"></div></div></div>
+  </div>
+</section>
+
+<div class="filmstrip"></div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div>
+    <p class="section-label">✦ Let's Connect</p>
+    <h2 class="section-title">Let's Create<br>Something</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div><div class="contact-label">Email</div><div class="contact-val">dassiddarth13@gmail.com</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div><div class="contact-label">Phone</div><div class="contact-val">+91 70230 82455</div></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><div class="contact-label">Location</div><div class="contact-val">Jaipur, Rajasthan, India</div></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" placeholder="First name"/></div>
+      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"/></div>
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="you@company.com"/></div>
+    <div class="form-group"><label>Project Type</label>
+      <select style="background:var(--dark3);border:1px solid var(--border);color:var(--text);padding:0.9rem 1rem;width:100%;font-family:Inter,sans-serif;font-size:0.9rem;outline:none;">
+        <option>Commercial / Ad</option>
+        <option>Wedding Film</option>
+        <option>Documentary</option>
+        <option>YouTube Content</option>
+        <option>Reels / Shorts</option>
+        <option>AI Video Project</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+    <button class="submit-btn">Send Message →</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SIDDHARTH DAS</div>
+  <p class="footer-text">© 2026 Siddharth Das. All rights reserved.</p>
+  <p class="footer-text" style="color:var(--purple-soft);font-size:0.75rem;letter-spacing:1px;">FRAME BY FRAME ✦</p>
+</footer>
+
+<script>
+// ——— PHOTO: paste your hosted image URL here to show your photo ———
+const PHOTO_URL = ""; // 👉 e.g. "https://i.imgur.com/yourphoto.jpg"
+if(PHOTO_URL){
+  const img = document.getElementById('profilePhoto');
+  const placeholder = document.getElementById('profilePlaceholder');
+  img.src = PHOTO_URL;
+  img.style.display = 'block';
+  placeholder.style.display = 'none';
+}
+
+// Project data
+const projects = [
+  {cat:"commercial", title:"Commercial Edit 01", id:"1Bv1ewT50AejBk4ylo5X49sQ5mGdtqpgl"},
+  {cat:"commercial", title:"Commercial Edit 02", id:"12V8dcsR_jbv5FR5u7kxDgSx6p1_SQypm"},
+  {cat:"wedding",    title:"Wedding Highlight 01", id:"1dN1Y3cA7ArMqM7mDJJqCCbQyEBs0mn3R"},
+  {cat:"wedding",    title:"Wedding Highlight 02", id:"1mkFbLp1T9RhHUzcIhrfHjb9i5MXTW94l"},
+  {cat:"documentary",title:"Documentary Edit 01", id:"1sCMPl6ONlddrIJzsLSoPau6fR4TPBE-B"},
+  {cat:"documentary",title:"Documentary Edit 02", id:"1vupfxem9AkHE2ycLiuBR_TmrQjw2zk2I"},
+  {cat:"youtube",    title:"YouTube Edit 01", id:"10hF5U1xP0KcVZ_I--9e4MBGqKg0mfkE6"},
+  {cat:"youtube",    title:"YouTube Edit 02", id:"1esPa5ssGR1kY-dgIBxo3LdBXMhSrQzIf"},
+  {cat:"youtube",    title:"YouTube Edit 03", id:"12lXZATLo2faZ2BiwGWqFLM0MApVdKZQK"},
+  {cat:"reels",      title:"Reel 01", id:"12B7CMwjo7h5n4ZB688kaJigZwgDzk9n8"},
+  {cat:"reels",      title:"Reel 02", id:"1eO-TtmI60YRE2BoIF24LwQqWqkemE0Bu"},
+  {cat:"reels",      title:"Reel 03", id:"18DfN7VKK45uaZrJyl-i_84oaz4jzpc8g"},
+  {cat:"reels",      title:"Reel 04", id:"127cLx9m4Zwy6D4ZCa0hKy3dZtUNgXddB"},
+  {cat:"aivideo",    title:"AI Video 01", id:"1Fcp8hNqsMSdlwsN5yUTfVqVk3aDWNA9h"},
+  {cat:"aivideo",    title:"AI Video 02", id:"1l5MoctClI1gUqT2Ni8xbE1zDKn2O5yHs"},
+];
+
+const catLabels = {commercial:"Commercial",wedding:"Wedding",documentary:"Documentary",youtube:"YouTube",reels:"Reels",aivideo:"AI Video"};
+const grid = document.getElementById('projectsGrid');
+
+function renderProjects(filter){
+  grid.innerHTML = '';
+  projects.filter(p => filter==='all' || p.cat===filter).forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.dataset.id = p.id;
+    card.innerHTML = `
+      <div class="project-label">${catLabels[p.cat]}</div>
+      <div class="project-title">${p.title}</div>
+      <div class="video-loading">Scroll to load</div>`;
+    grid.appendChild(card);
+  });
+  observeCards();
+}
+
+function observeCards(){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const card = entry.target;
+        const loadingEl = card.querySelector('.video-loading');
+        if(loadingEl){
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://drive.google.com/file/d/${card.dataset.id}/preview`;
+          iframe.allow = 'autoplay';
+          iframe.allowFullscreen = true;
+          loadingEl.replaceWith(iframe);
+        }
+        io.unobserve(card);
+      }
+    });
+  }, {rootMargin:'200px'});
+  document.querySelectorAll('.project-card[data-id]').forEach(c => io.observe(c));
+}
+
+renderProjects('all');
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderProjects(tab.dataset.filter);
+  });
+});
+
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+  });
+}, {threshold:0.1});
+
+document.querySelectorAll('.skill-card,.timeline-item,.stat-card').forEach(el => {
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  fadeObserver.observe(el);
+});
+</script>
+</body>
+</html>
